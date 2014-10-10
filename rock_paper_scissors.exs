@@ -34,12 +34,18 @@ defmodule RockPaperScissors do
   def play_game({5, _}), do: RockPaperScissors.Output.player_ultimate_victory
   def play_game({_, 5}), do: RockPaperScissors.Output.computer_ultimate_victory
   def play_game({player_score, computer_score}) do
-    get_player_pick({player_score, computer_score})
+    {player_score, computer_score}
+    |> get_player_pick
     |> get_computer_pick
     |> get_result
     |> adjust_score
     |> RockPaperScissors.Output.round_results
     |> play_game 
+  end
+
+  def start do
+    RockPaperScissors.Output.welcome_message
+    play_game({0,0})   
   end
 end
 
@@ -69,5 +75,4 @@ defmodule AMB.Utilities do
   end
 end
 
-RockPaperScissors.Output.welcome_message
-RockPaperScissors.play_game({0,0})
+RockPaperScissors.start
